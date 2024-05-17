@@ -54,7 +54,7 @@
             if (urls && urls.length > 0) {
                 urls.forEach(url => {
                     const listItem = document.createElement('li');
-                    listItem.innerHTML = `<p>${url.keyword} - <a href="https://agencia.50x.com.br/s/?r=${url.keyword}" target="_blank" title="${url.url}">${url.title}</a></p>`;
+                    listItem.innerHTML = `<p>${url.keyword} - <a href="https://agencia.50x.com.br/url/?r=${url.keyword}" target="_blank" title="${url.url}">${url.title}</a></p>`;
                     sitemap.appendChild(listItem);
                 });
             } else {
