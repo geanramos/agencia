@@ -29,7 +29,7 @@
                 if (queryParams.hasOwnProperty('r')) {
                     const keyword = queryParams['r'];
                     try {
-                        const urls = await loadJSON('sort.json');
+                        const urls = await loadJSON('short.json');
                         const item = urls.find(item => item.keyword === keyword);
 
                         if (item) {

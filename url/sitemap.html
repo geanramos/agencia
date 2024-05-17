@@ -65,7 +65,7 @@
         // Função principal
         async function main() {
             try {
-                const urls = await loadJSON('sort.json');
+                const urls = await loadJSON('short.json');
                 generateSitemap(urls);
             } catch (error) {
                 console.error('Erro ao carregar o JSON:', error);
