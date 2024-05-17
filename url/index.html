@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirector</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Função para obter os parâmetros da URL
+            function getQueryParams() {
+                const params = new URLSearchParams(window.location.search);
+                return Object.fromEntries(params.entries());
+            }
+
+            // Carrega o arquivo JSON e retorna uma Promise
+            function loadJSON(url) {
+                return fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    });
+            }
+
+            // Função principal
+            async function main() {
+                const queryParams = getQueryParams();
+                if (queryParams.hasOwnProperty('r')) {
+                    const keyword = queryParams['r'];
+                    try {
+                        const urls = await loadJSON('sort.json');
+                        const item = urls.find(item => item.keyword === keyword);
+
+                        if (item) {
+                            // Redireciona para a URL correspondente
+                            window.location.href = item.url;
+                        } else {
+                            // Mostra uma mensagem de erro se a keyword não foi encontrada
+                            document.body.innerHTML = '<h1>Keyword não encontrada</h1>';
+                        }
+                    } catch (error) {
+                        console.error('Erro ao carregar o JSON:', error);
+                        document.body.innerHTML = '<h1>Erro ao carregar dados</h1>';
+                    }
+                } else {
+                    // Mostra uma mensagem de erro se o parâmetro ?r= não foi fornecido
+                    document.body.innerHTML = "<h1>Parâmetro 'r' não fornecido</h1>";
+                }
+            }
+
+            main();
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
